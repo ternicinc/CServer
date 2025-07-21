@@ -53,8 +53,6 @@ void handle_maintenance(http_request_t *request, http_response_t *response) {
 void handle_home(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
     template_context_set(ctx, "title", "ternic, VPS.");
-    template_context_set(ctx, "message", "Welcome to our advanced C-based web server!");
-    template_context_set(ctx, "version", "1.0.0");
     
     char *rendered = template_render_file("templates/index.html", ctx);
     if (rendered) {
