@@ -92,7 +92,15 @@ int auth_register_user(auth_context_t *auth_ctx, const char *username,
     
     auth_ctx->user_count++;
     
-    log_info("User registered: %s (ID: %d)", username, user->user_id);
+    // Immediately save the updated user list to disk
+    if (auth_save_users(auth_ctx, "users.dat") != 0) {
+        log_error("Failed to save user registration to disk");
+        // Roll back the user count
+        auth_ctx->user_count--;
+        return -7;  // New error code for save failure
+    }
+    
+    log_info("User registered and saved: %s (ID: %d)", username, user->user_id);
     return user->user_id;
 }
 
