@@ -80,7 +80,7 @@ void handle_api_status(http_request_t *request, http_response_t *response) {
 void news_handler(http_request_t *request, http_request_t *response) {
     template_context_t *ctx = template_context_create();
     template_context_set(ctx, "news_title", "Ternic, News.");
-    template_context_set(ctx, "news_info", "News: Get the latest information in HD.")
+    template_context_set(ctx, "news_info", "News: Get the latest information in HD.");
 
     char *rendered = template_render_file("templates/news.html", ctx);
     if (rendered) {
@@ -100,7 +100,7 @@ void news_handler(http_request_t *request, http_request_t *response) {
 void dashboard_handler(http_request_t *request, http_request_t *response) {
     template_context_t *ctx = template_context_create();
     template_context_set(ctx, "dashboard_title", "Ternic, VPS.");
-    template_context_set(ctx, "dashboard_info", "Deploy your Instance today.")
+    template_context_set(ctx, "dashboard_info", "Deploy your Instance today.");
 
     char *rendered = template_render_file("templates/dashboard/main.html", ctx);
     if (rendered) {
@@ -163,7 +163,9 @@ int main() {
     router_add_route(server->router, "GET", "/server", server_handler);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "GET", "/", maintenance_handler);
-    
+    router_add_route(server->router, "GET", "/dashboard", dashboard_handler);
+
+
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
     
