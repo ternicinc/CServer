@@ -42,6 +42,27 @@ void handle_home(http_request_t *request, http_response_t *response) {
     template_context_destroy(ctx);
 }
 
+void root_handler(http_request_t *request, http_response_t *response) {
+    template_context_t *ctx = template_context_create();
+    template_context_set(ctx, "root_title", "Root Test");
+    template_context_set(ctx, "root_message", "Root Test Message");
+
+    char *rendered = template_render_file("templates/root.html", ctx);
+    if (rendered) {
+        http_response_set_body(response, rendered);
+        http_response_set_header(response, "Content-Type", "text/html");
+        http_response_set_status(response, 200);
+        free(rendered);
+    } else {
+        http_response_set_status(response, 500);
+        http_response_set_body(response, "Internal Server Error");
+    }
+
+    template_context_destroy(ctx);
+}
+
+
+
 void handle_api_status(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
     template_context_set(ctx, "status", "running");
@@ -103,6 +124,7 @@ int main() {
     router_add_route(server->router, "GET", "/", handle_home);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "POST", "/submit", handle_post_data);
+    router_add_route(server->router, "GET", "/root", root_handler);
     
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
