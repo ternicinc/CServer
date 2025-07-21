@@ -1,0 +1,38 @@
+[2025-07-21 14:48:37] INFO: Logger initialized
+[2025-07-21 14:48:37] INFO: Starting Advanced C Web Server...
+[2025-07-21 14:48:37] INFO: Added route: GET /server
+[2025-07-21 14:48:37] INFO: Added route: GET /api/status
+[2025-07-21 14:48:37] INFO: Added route: POST /submit
+[2025-07-21 14:48:37] INFO: Added route: GET /
+[2025-07-21 14:48:37] INFO: Added static route: /static -> static
+[2025-07-21 14:48:37] INFO: Server configured with routes:
+[2025-07-21 14:48:37] INFO:   GET  / - Home page
+[2025-07-21 14:48:37] INFO:   GET  /api/status - Server status API
+[2025-07-21 14:48:37] INFO:   POST /submit - Handle form submissions
+[2025-07-21 14:48:37] INFO:   Static files served from /static
+[2025-07-21 14:48:37] INFO: Server started successfully on http://0.0.0.0:5000
+[2025-07-21 14:48:39] INFO: Request: GET /
+[2025-07-21 14:48:39] INFO: Request: GET /static/style.css
+[2025-07-21 14:48:39] INFO: Request: GET /static/script.js
+[2025-07-21 14:48:39] INFO: Served static file: static/script.js
+[2025-07-21 14:48:39] INFO: Served static file: static/style.css
+[2025-07-21 14:48:41] INFO: Request: GET /api/status
+[2025-07-21 14:49:30] INFO: Request: GET /
+[2025-07-21 14:49:30] INFO: Request: GET /static/style.css
+[2025-07-21 14:49:30] INFO: Request: GET /static/script.js
+[2025-07-21 14:49:30] INFO: Served static file: static/style.css
+[2025-07-21 14:49:30] INFO: Served static file: static/script.js
+[2025-07-21 14:49:31] INFO: Request: GET /
+[2025-07-21 14:49:31] INFO: Request: GET /static/style.css
+[2025-07-21 14:49:31] INFO: Served static file: static/style.css
+[2025-07-21 14:49:31] INFO: Request: GET /static/script.js
+[2025-07-21 14:49:31] INFO: Served static file: static/script.js
+[2025-07-21 14:49:32] INFO: Request: GET /api/status
+[2025-07-21 14:53:23] ERROR: Failed to parse HTTP request
+[2025-07-21 14:53:23] ERROR: Failed to parse HTTP request
+[2025-07-21 15:23:15] INFO: Request: GET /
+[2025-07-21 15:23:16] INFO: Request: GET /static/script.js
+[2025-07-21 15:23:16] INFO: Request: GET /static/style.css
+[2025-07-21 15:23:16] INFO: Served static file: static/script.js
+[2025-07-21 15:23:16] INFO: Served static file: static/style.css
+[2025-07-21 15:23:55] INFO: Received shutdown signal, stopping server...
