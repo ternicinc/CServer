@@ -27,7 +27,7 @@ clean:
 
 # Publish to git
 publish:
-	clear && git add . && git commit -m "CORE" && git push
+	make clean && git add . && git commit -m "CORE" && git push
 
 # Install target (optional)
 install: $(TARGET)
