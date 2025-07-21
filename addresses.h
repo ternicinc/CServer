@@ -5,7 +5,7 @@
 #include <time.h>
 
 #define MAX_ADDRESSES_POOL 256
-#define MAX_ADDRESSES_POOL_USE 255
+#define MAX_ADDRESSES_POOL_USE 254
 #define MAX_POOLS 500
 #define POOL_NAME_LENGTH 64
 
