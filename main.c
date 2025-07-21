@@ -14,7 +14,7 @@
 // Global server instance for signal handling
 http_server_t *global_server = NULL;
 
-// Maintenance Bool
+// Maintenance Bool Variable
 bool maintenanceMode = true;
 // Global authentication context
 auth_context_t auth_context;
@@ -423,6 +423,8 @@ int main() {
     router_add_route(server->router, "GET", "/api/profile", handle_profile);
     router_add_route(server->router, "GET", "/api/users", handle_users);
     
+    // Maintenance Check.
+
     if (maintenanceMode) {
         router_add_route(server->router, "GET", "/", handle_maintenance);
     }
