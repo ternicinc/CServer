@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
@@ -13,6 +14,8 @@
 // Global server instance for signal handling
 http_server_t *global_server = NULL;
 
+// Maintenance Bool
+bool maintenanceMode = true;
 // Global authentication context
 auth_context_t auth_context;
 
@@ -25,6 +28,25 @@ void signal_handler(int sig) {
         }
         exit(0);
     }
+}
+
+
+void handle_maintenance(http_request_t *request, http_response_t *response) {
+    template_context_t *ctx = template_context_create();
+    template_context_set(ctx, "maintenance_title", "Ternic: Maintenance");
+    
+    char *rendered = template_render_file("templates/utils/maintenance.html", ctx);
+    if (rendered) {
+        http_response_set_body(response, rendered);
+        http_response_set_header(response, "Content-Type", "text/html");
+        http_response_set_status(response, 200);
+        free(rendered);
+    } else {
+        http_response_set_status(response, 500);
+        http_response_set_body(response, "Internal Server Error");
+    }
+    
+    template_context_destroy(ctx);
 }
 
 // Route handlers
@@ -50,9 +72,6 @@ void handle_home(http_request_t *request, http_response_t *response) {
 
 void auth_handler(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
-    template_context_set(ctx, "title", "Advanced C Web Server");
-    template_context_set(ctx, "message", "Welcome to our advanced C-based web server!");
-    template_context_set(ctx, "version", "1.0.0");
     
     char *rendered = template_render_file("templates/auth_test.html", ctx);
     if (rendered) {
@@ -393,7 +412,6 @@ int main() {
     global_server = server;
     
     // Setup routes
-    router_add_route(server->router, "GET", "/", handle_home);
     router_add_route(server->router, "GET", "/auth", auth_handler);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "POST", "/submit", handle_post_data);
@@ -405,6 +423,12 @@ int main() {
     router_add_route(server->router, "GET", "/api/profile", handle_profile);
     router_add_route(server->router, "GET", "/api/users", handle_users);
     
+    if (maintenanceMode) {
+        router_add_route(server->router, "GET", "/", handle_maintenance);
+    }
+    else {
+        router_add_route(server->router, "GET", "/", handle_home);
+    }
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
     
