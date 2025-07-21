@@ -95,7 +95,7 @@ void handle_server(http_request_t *request, http_response_t *response) {
 void auth_handler(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
     
-    char *rendered = template_render_file("templates/auth_test.html", ctx);
+    char *rendered = template_render_file("templates/auth/auth.html", ctx);
     if (rendered) {
         http_response_set_body(response, rendered);
         http_response_set_header(response, "Content-Type", "text/html");
