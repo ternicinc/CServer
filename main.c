@@ -15,7 +15,7 @@
 http_server_t *global_server = NULL;
 
 // Maintenance Bool Variable
-bool maintenanceMode = true;
+bool maintenanceMode = false;
 // Global authentication context
 auth_context_t auth_context;
 
@@ -52,7 +52,7 @@ void handle_maintenance(http_request_t *request, http_response_t *response) {
 // Route handlers
 void handle_home(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
-    template_context_set(ctx, "title", "Advanced C Web Server");
+    template_context_set(ctx, "title", "ternic, VPS.");
     template_context_set(ctx, "message", "Welcome to our advanced C-based web server!");
     template_context_set(ctx, "version", "1.0.0");
     
@@ -69,6 +69,30 @@ void handle_home(http_request_t *request, http_response_t *response) {
     
     template_context_destroy(ctx);
 }
+
+
+
+void handle_server(http_request_t *request, http_response_t *response) {
+    template_context_t *ctx = template_context_create();
+    template_context_set(ctx, "title", "Our Server");
+    template_context_set(ctx, "message", "Welcome to our server info, this is the server running the dashboard.");
+    template_context_set(ctx, "version", "1.0.0");
+    
+    char *rendered = template_render_file("templates/server.html", ctx);
+    if (rendered) {
+        http_response_set_body(response, rendered);
+        http_response_set_header(response, "Content-Type", "text/html");
+        http_response_set_status(response, 200);
+        free(rendered);
+    } else {
+        http_response_set_status(response, 500);
+        http_response_set_body(response, "Internal Server Error");
+    }
+    
+    template_context_destroy(ctx);
+}
+
+
 
 void auth_handler(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
@@ -415,6 +439,8 @@ int main() {
     router_add_route(server->router, "GET", "/auth", auth_handler);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "POST", "/submit", handle_post_data);
+    router_add_route(server->router, "GET", "/server", handle_server);
+
     
     // Authentication routes
     router_add_route(server->router, "POST", "/api/register", handle_register);
