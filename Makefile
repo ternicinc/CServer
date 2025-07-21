@@ -24,6 +24,11 @@ $(TARGET): $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(TARGET) server.log
 
+
+# Publish to git
+publish:
+	clear && git add . && git commit -m "CORE" && git push
+
 # Install target (optional)
 install: $(TARGET)
 	mkdir -p /usr/local/bin
