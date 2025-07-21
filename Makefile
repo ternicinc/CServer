@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -std=c99 -D_POSIX_C_SOURCE=200809L -g
 LDFLAGS = -lpthread
 
 # Source files
-SOURCES = main.c http_server.c router.c template.c logger.c utils.c
+SOURCES = main.c http_server.c router.c template.c logger.c utils.c auth.c
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = webserver
 
@@ -63,12 +63,13 @@ format:
 	clang-format -i *.c *.h
 
 # Dependencies
-main.o: main.c http_server.h router.h logger.h
+main.o: main.c http_server.h router.h logger.h template.h auth.h
 http_server.o: http_server.c http_server.h logger.h utils.h router.h
 router.o: router.c router.h http_server.h template.h logger.h utils.h
 template.o: template.c template.h logger.h utils.h
 logger.o: logger.c logger.h
 utils.o: utils.c utils.h logger.h
+auth.o: auth.c auth.h logger.h utils.h http_server.h
 
 .PHONY: all clean install setup run debug release memcheck analyze format
 

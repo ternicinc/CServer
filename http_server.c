@@ -151,35 +151,142 @@ void *accept_connections(void *arg) {
     return NULL;
 }
 
+
+
+int http_parse_headers(const char *headers_data, http_request_t *request) {
+    if (!headers_data || !request) return -1;
+    
+    char *headers_copy = strdup(headers_data);
+    if (!headers_copy) return -1;
+    
+    char *saveptr;
+    char *line = strtok_r(headers_copy, "\r\n", &saveptr);
+    
+    if (!line) {
+        free(headers_copy);
+        return -1;
+    }
+    
+    // Parse request line
+    char *method = strtok(line, " ");
+    char *path = strtok(NULL, " ");
+    char *version = strtok(NULL, " ");
+    
+    if (!method || !path || !version) {
+        free(headers_copy);
+        return -1;
+    }
+    
+    strncpy(request->method, method, sizeof(request->method) - 1);
+    request->method[sizeof(request->method) - 1] = '\0';
+    
+    strncpy(request->path, path, sizeof(request->path) - 1);
+    request->path[sizeof(request->path) - 1] = '\0';
+    
+    strncpy(request->version, version, sizeof(request->version) - 1);
+    request->version[sizeof(request->version) - 1] = '\0';
+    
+    // Parse headers
+    while ((line = strtok_r(NULL, "\r\n", &saveptr)) && strlen(line) > 0 && request->header_count < MAX_HEADERS) {
+        char *colon = strchr(line, ':');
+        if (colon) {
+            *colon = '\0';
+            char *name = trim_whitespace(line);
+            char *value = trim_whitespace(colon + 1);
+            
+            strncpy(request->headers[request->header_count].name, name, 
+                   sizeof(request->headers[request->header_count].name) - 1);
+            request->headers[request->header_count].name[sizeof(request->headers[request->header_count].name) - 1] = '\0';
+            
+            strncpy(request->headers[request->header_count].value, value, 
+                   sizeof(request->headers[request->header_count].value) - 1);
+            request->headers[request->header_count].value[sizeof(request->headers[request->header_count].value) - 1] = '\0';
+            
+            request->header_count++;
+        }
+    }
+    
+    free(headers_copy);
+    return 0;
+}
+
+
 void *handle_client(void *args) {
     client_handler_args_t *handler_args = (client_handler_args_t *)args;
     http_server_t *server = handler_args->server;
     int client_socket = handler_args->client_socket;
     
-    char buffer[MAX_REQUEST_SIZE];
+    char buffer[MAX_REQUEST_SIZE] = {0};
     ssize_t bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
     
-    if (bytes_received < 0) {
+    if (bytes_received <= 0) {
         log_error("Failed to receive data from client");
         goto cleanup;
     }
-    
+
+    // Null-terminate the received data
     buffer[bytes_received] = '\0';
     
-    // Parse HTTP request
+    // Find the end of headers
+    char *header_end = strstr(buffer, "\r\n\r\n");
+    if (!header_end) {
+        log_error("Malformed request - no header terminator");
+        goto cleanup;
+    }
+
+    // Calculate header length
+    size_t header_length = header_end - buffer;
+    
+    // Parse headers first to get Content-Length
     http_request_t *request = http_request_create();
     if (!request) {
         log_error("Failed to create HTTP request");
         goto cleanup;
     }
+
+    // Temporarily null-terminate at header end for header parsing
+    char temp = header_end[4];
+    header_end[4] = '\0';
     
+    if (http_parse_headers(buffer, request) != 0) {
+        log_error("Failed to parse HTTP headers");
+        http_request_destroy(request);
+        goto cleanup;
+    }
+    
+    // Restore the original data
+    header_end[4] = temp;
+
+    // Get Content-Length if present
+    size_t content_length = 0;
+    const char *content_length_str = http_request_get_header(request, "Content-Length");
+    if (content_length_str) {
+        content_length = atoi(content_length_str);
+    }
+
+    // Calculate total expected request size
+    size_t total_expected = header_length + 4 + content_length; // +4 for \r\n\r\n
+    
+    // If we haven't received the full request yet, read more
+    while (bytes_received < total_expected && bytes_received < sizeof(buffer) - 1) {
+        ssize_t more_bytes = recv(client_socket, buffer + bytes_received, 
+                                 sizeof(buffer) - bytes_received - 1, 0);
+        if (more_bytes <= 0) break;
+        bytes_received += more_bytes;
+        buffer[bytes_received] = '\0';
+    }
+
+    // Now parse the complete request
     if (http_parse_request(buffer, request) != 0) {
         log_error("Failed to parse HTTP request");
         http_request_destroy(request);
         goto cleanup;
     }
-    
-    log_info("Request: %s %s", request->method, request->path);
+
+    log_info("Request: %s %s (Body length: %zu, Content: %.*s)", 
+             request->method, request->path, request->body_length,
+             (int)request->body_length, request->body ? request->body : "");
+
     
     // Create response
     http_response_t *response = http_response_create();
@@ -327,71 +434,39 @@ void http_response_set_body(http_response_t *response, const char *body) {
     }
 }
 
+
+
 // HTTP parsing
 int http_parse_request(const char *raw_request, http_request_t *request) {
     if (!raw_request || !request) return -1;
     
-    char *request_copy = strdup(raw_request);
-    if (!request_copy) return -1;
-    
-    char *lines = request_copy;
-    char *line = strtok_r(lines, "\r\n", &lines);
-    
-    if (!line) {
-        free(request_copy);
-        return -1;
+    // Find the body start
+    const char *body_start = strstr(raw_request, "\r\n\r\n");
+    if (!body_start) {
+        return 0; // No body
     }
+    body_start += 4; // Skip past \r\n\r\n
     
-    // Parse request line
-    char *method = strtok(line, " ");
-    char *path = strtok(NULL, " ");
-    char *version = strtok(NULL, " ");
-    
-    if (!method || !path || !version) {
-        free(request_copy);
-        return -1;
-    }
-    
-    strncpy(request->method, method, sizeof(request->method) - 1);
-    request->method[sizeof(request->method) - 1] = '\0';
-    
-    strncpy(request->path, path, sizeof(request->path) - 1);
-    request->path[sizeof(request->path) - 1] = '\0';
-    
-    strncpy(request->version, version, sizeof(request->version) - 1);
-    request->version[sizeof(request->version) - 1] = '\0';
-    
-    // Parse headers
-    while ((line = strtok_r(lines, "\r\n", &lines)) && strlen(line) > 0 && request->header_count < MAX_HEADERS) {
-        char *colon = strchr(line, ':');
-        if (colon) {
-            *colon = '\0';
-            char *name = trim_whitespace(line);
-            char *value = trim_whitespace(colon + 1);
-            
-            strncpy(request->headers[request->header_count].name, name, sizeof(request->headers[request->header_count].name) - 1);
-            request->headers[request->header_count].name[sizeof(request->headers[request->header_count].name) - 1] = '\0';
-            
-            strncpy(request->headers[request->header_count].value, value, sizeof(request->headers[request->header_count].value) - 1);
-            request->headers[request->header_count].value[sizeof(request->headers[request->header_count].value) - 1] = '\0';
-            
-            request->header_count++;
+    // Get Content-Length if available
+    const char *content_length_str = http_request_get_header(request, "Content-Length");
+    if (content_length_str) {
+        size_t content_length = atoi(content_length_str);
+        if (content_length > 0) {
+            request->body_length = content_length;
+            request->body = malloc(content_length + 1);
+            if (request->body) {
+                strncpy(request->body, body_start, content_length);
+                request->body[content_length] = '\0';
+            }
         }
+    } else {
+        // No Content-Length, take everything after headers as body
+        request->body_length = strlen(body_start);
+        request->body = strdup(body_start);
     }
     
-    // Parse body if present
-    if (lines && strlen(lines) > 0) {
-        request->body_length = strlen(lines);
-        request->body = malloc(request->body_length + 1);
-        if (request->body) {
-            strcpy(request->body, lines);
-        }
-    }
-    
-    free(request_copy);
     return 0;
 }
-
 char *http_serialize_response(http_response_t *response) {
     if (!response) return NULL;
     
