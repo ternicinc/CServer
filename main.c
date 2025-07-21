@@ -10,6 +10,7 @@
 #include "logger.h"
 #include "template.h"
 #include "auth.h"
+#include "addresses.h"
 
 // Global server instance for signal handling
 http_server_t *global_server = NULL;
