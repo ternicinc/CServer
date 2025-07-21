@@ -97,6 +97,25 @@ void news_handler(http_request_t *request, http_request_t *response) {
 }
 
 
+void dashboard_handler(http_request_t *request, http_request_t *response) {
+    template_context_t *ctx = template_context_create();
+    template_context_set(ctx, "dashboard_title", "Ternic, VPS.");
+    template_context_set(ctx, "dashboard_info", "Deploy your Instance today.")
+
+    char *rendered = template_render_file("templates/dashboard/main.html", ctx);
+    if (rendered) {
+        http_response_set_body(response, rendered);
+        http_response_set_header(response, "Content-Type", "text/html");
+        http_response_set_status(response, 200);
+        free(rendered); 
+    } else {
+        http_response_set_status(response, 500);
+        http_response_set_body(response, "Internal Server Error");
+    }
+
+    template_context_destroy(ctx);
+}
+
 void handle_post_data(http_request_t *request, http_response_t *response) {
     const char *body = http_request_get_body(request);
     
