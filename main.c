@@ -22,13 +22,13 @@ void signal_handler(int sig) {
 }
 
 // Route handlers
-void handle_home(http_request_t *request, http_response_t *response) {
+void server_handler(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
-    template_context_set(ctx, "title", "Advanced C Web Server");
-    template_context_set(ctx, "message", "Welcome to our advanced C-based web server!");
+    template_context_set(ctx, "title", "Server Information");
+    template_context_set(ctx, "message", "Our C based server information, running this dashboard.");
     template_context_set(ctx, "version", "1.0.0");
     
-    char *rendered = template_render_file("templates/index.html", ctx);
+    char *rendered = template_render_file("templates/server.html", ctx);
     if (rendered) {
         http_response_set_body(response, rendered);
         http_response_set_header(response, "Content-Type", "text/html");
@@ -42,12 +42,12 @@ void handle_home(http_request_t *request, http_response_t *response) {
     template_context_destroy(ctx);
 }
 
-void root_handler(http_request_t *request, http_response_t *response) {
+void maintenance_handler(http_request_t *request, http_response_t *response) {
     template_context_t *ctx = template_context_create();
-    template_context_set(ctx, "root_title", "Root Test");
-    template_context_set(ctx, "root_message", "Root Test Message");
+    template_context_set(ctx, "root_title", "Ternic: Maintenance");
+    template_context_set(ctx, "root_message", "Maintenance Mode");
 
-    char *rendered = template_render_file("templates/root.html", ctx);
+    char *rendered = template_render_file("templates/maintenance.html", ctx);
     if (rendered) {
         http_response_set_body(response, rendered);
         http_response_set_header(response, "Content-Type", "text/html");
@@ -121,10 +121,10 @@ int main() {
     global_server = server;
     
     // Setup routes
-    router_add_route(server->router, "GET", "/", handle_home);
+    router_add_route(server->router, "GET", "/server", server_handler);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "POST", "/submit", handle_post_data);
-    router_add_route(server->router, "GET", "/root", root_handler);
+    router_add_route(server->router, "GET", "/", maintenance_handler);
     
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
