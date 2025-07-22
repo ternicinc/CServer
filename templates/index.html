@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
+    <meta name="description" content="Premium VPS Hosting with high performance servers, 24/7 support, and competitive pricing">
+    <meta name="keywords" content="VPS, hosting, cloud, server, virtual private server, web hosting">
+    <title>{{title}} | Ternic VPS Hosting</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Announcement Bar -->
+    <!-- <div class="announcement-bar bg-primary text-white py-2">
+        <div class="container text-center">
+            <p class="mb-0"><i class="fas fa-bullhorn me-2"></i> Special Offer: Get 20% off your first month with code <strong>WELCOME20</strong></p>
+        </div>
+    </div> -->
+
+    <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <i class="fas fa-server me-2"></i>
-                Ternic, VPS.
+                <span class="fw-bold">Ternic</span> VPS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -26,13 +39,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/api/status">
-                            <i class="fas fa-info-circle me-1"></i>Status
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/server">
-                            <i class="fas fa-server me-1"></i>Server
+                        <a class="nav-link" href="/features">
+                            <i class="fas fa-star me-1"></i>Features
                         </a>
                     </li>
                     <li class="nav-item">
@@ -40,25 +48,362 @@
                             <i class="fas fa-tag me-1"></i>Pricing
                         </a>
                     </li>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/auth">
-                        <i class="fas fa-at me-1"></i>Auth
-                    </a>
-                </li>
-
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/server">
+                            <i class="fas fa-server me-1"></i>Servers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/status">
+                            <i class="fas fa-info-circle me-1"></i>Status
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/support">
+                            <i class="fas fa-headset me-1"></i>Support
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm" href="/auth/login">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary btn-sm" href="/auth/register">
+                            <i class="fas fa-user-plus me-1"></i>Register
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Main Content -->
+<!-- Main Content -->
+<main>
+    <!-- Hero Section -->
+    <section class="hero-section bg-dark text-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Premium VPS Hosting <span class="text-primary">Built for Speed</span></h1>
+                    <p class="lead mb-4">Deploy high-performance virtual servers in seconds with our 99.9% uptime guarantee and 24/7 expert support.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="/pricing" class="btn btn-primary btn-lg px-4">
+                            <i class="fas fa-rocket me-2"></i>Get Started
+                        </a>
+                        <a href="/features" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-search me-2"></i>Explore Features
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="/static/images/server-illustration.svg" alt="VPS Server Illustration" class="img-fluid">
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
+    <!-- Trust Badges -->
+    <section class="trust-badges py-4 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-auto text-center px-4">
+                    <i class="fas fa-shield-alt fs-2 text-primary mb-2"></i>
+                    <p class="mb-0 fw-bold">DDoS Protection</p>
+                </div>
+                <div class="col-auto text-center px-4">
+                    <i class="fas fa-tachometer-alt fs-2 text-primary mb-2"></i>
+                    <p class="mb-0 fw-bold">SSD Storage</p>
+                </div>
+                <div class="col-auto text-center px-4">
+                    <i class="fas fa-globe fs-2 text-primary mb-2"></i>
+                    <p class="mb-0 fw-bold">10 Locations</p>
+                </div>
+                <div class="col-auto text-center px-4">
+                    <i class="fas fa-headset fs-2 text-primary mb-2"></i>
+                    <p class="mb-0 fw-bold">24/7 Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Choose Ternic VPS?</h2>
+                <p class="lead text-muted">Enterprise-grade infrastructure at affordable prices</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary mb-3">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4 class="mb-3">Lightning Fast</h4>
+                            <p class="text-muted">Our NVMe SSD storage and premium network ensure your applications load in milliseconds.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary mb-3">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h4 class="mb-3">Secure by Default</h4>
+                            <p class="text-muted">Automatic backups, DDoS protection, and firewall configurations included with every plan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="icon-box bg-primary bg-opacity-10 text-primary mb-3">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <h4 class="mb-3">Easy Control Panel</h4>
+                            <p class="text-muted">Manage your VPS with our intuitive control panel or full root access via SSH.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Highlights -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Simple, Transparent Pricing</h2>
+                <p class="lead text-muted">No hidden fees. Cancel anytime.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h4 class="mb-0 text-center">Starter</h4>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <div class="price display-4 fw-bold mb-3">$5.99<span class="fs-6 text-muted">/mo</span></div>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>1 vCPU Core</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>2GB RAM</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>40GB SSD Storage</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>2TB Bandwidth</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>1 IPv4 Address</li>
+                            </ul>
+                            <a href="/pricing" class="btn btn-outline-primary w-100">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-lg">
+                        <div class="card-header bg-primary text-white py-3 border-bottom">
+                            <h4 class="mb-0 text-center">Business</h4>
+                            <div class="badge bg-white text-primary mt-2">Most Popular</div>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <div class="price display-4 fw-bold mb-3">$14.99<span class="fs-6 text-muted">/mo</span></div>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>4 vCPU Cores</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>8GB RAM</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>120GB SSD Storage</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>5TB Bandwidth</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>2 IPv4 Addresses</li>
+                            </ul>
+                            <a href="/pricing" class="btn btn-primary w-100">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h4 class="mb-0 text-center">Enterprise</h4>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <div class="price display-4 fw-bold mb-3">$29.99<span class="fs-6 text-muted">/mo</span></div>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>8 vCPU Cores</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>16GB RAM</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>240GB SSD Storage</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>10TB Bandwidth</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>4 IPv4 Addresses</li>
+                            </ul>
+                            <a href="/pricing" class="btn btn-outline-primary w-100">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/pricing" class="btn btn-link">Compare all plans <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Trusted by Thousands</h2>
+                <p class="lead text-muted">What our customers say about us</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="mb-4">"Ternic's VPS hosting has been rock solid for our e-commerce platform. The performance is exceptional and their support team is always helpful."</p>
+                            <div class="d-flex align-items-center">
+                                <img src="/static/images/avatar1.jpg" class="rounded-circle me-3" width="50" alt="Customer">
+                                <div>
+                                    <h6 class="mb-0">Sarah Johnson</h6>
+                                    <small class="text-muted">CTO, TechStart</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="mb-4">"Migrating to Ternic was the best decision we made. Server deployment takes seconds, and we've had zero downtime in 6 months."</p>
+                            <div class="d-flex align-items-center">
+                                <img src="/static/images/avatar2.jpg" class="rounded-circle me-3" width="50" alt="Customer">
+                                <div>
+                                    <h6 class="mb-0">Michael Chen</h6>
+                                    <small class="text-muted">DevOps Engineer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="mb-4">"The price-performance ratio is unbeatable. We run multiple game servers with hundreds of concurrent players without any lag issues."</p>
+                            <div class="d-flex align-items-center">
+                                <img src="/static/images/avatar3.jpg" class="rounded-circle me-3" width="50" alt="Customer">
+                                <div>
+                                    <h6 class="mb-0">David Wilson</h6>
+                                    <small class="text-muted">Game Developer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h2 class="fw-bold mb-3">Ready to deploy your VPS?</h2>
+                    <p class="lead mb-0">Get started in under 60 seconds. No credit card required for trial.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="/auth/register" class="btn btn-light btn-lg px-4">
+                        <i class="fas fa-play me-2"></i>Get Started Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-server me-2"></i>Ternic VPS
+                    </h5>
+                    <p>Premium Virtual Private Server hosting with high performance infrastructure and 24/7 support.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/pricing" class="text-white-50">VPS Hosting</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Dedicated Servers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Cloud Storage</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Domain Registration</a></li>
+                        <li><a href="#" class="text-white-50">SSL Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about" class="text-white-50">About Us</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50">Blog</a></li>
+                        <li class="mb-2"><a href="/careers" class="text-white-50">Careers</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50">Contact Us</a></li>
+                        <li><a href="/legal" class="text-white-50">Legal</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/support" class="text-white-50">Help Center</a></li>
+                        <li class="mb-2"><a href="/knowledgebase" class="text-white-50">Knowledge Base</a></li>
+                        <li class="mb-2"><a href="/status" class="text-white-50">Network Status</a></li>
+                        <li class="mb-2"><a href="/tickets" class="text-white-50">Support Tickets</a></li>
+                        <li><a href="/faq" class="text-white-50">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 Ternic VPS. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="/privacy" class="text-white-50">Privacy Policy</a></li>
+                        <li class="list-inline-item mx-2">•</li>
+                        <li class="list-inline-item"><a href="/terms" class="text-white-50">Terms of Service</a></li>
+                        <li class="list-inline-item mx-2">•</li>
+                        <li class="list-inline-item"><a href="/aup" class="text-white-50">AUP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/static/script.js"></script>
 </body>
 </html>
