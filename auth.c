@@ -404,6 +404,7 @@ const char* auth_get_role_name(int role) {
     switch (role) {
         case 0: return "user";
         case 1: return "admin";
+        case 2: return "owner";
         default: return "unknown";
     }
 }
