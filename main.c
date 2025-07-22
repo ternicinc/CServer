@@ -4,6 +4,8 @@
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdint.h>
+#include <time.h>
 #include <ctype.h>
 #include "http_server.h"
 #include "router.h"
@@ -405,6 +407,11 @@ void handle_users(http_request_t *request, http_response_t *response) {
     
     free(response_body);
 }
+
+
+
+
+
 
 int main() {
     // Initialize logger
