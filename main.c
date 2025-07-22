@@ -442,7 +442,7 @@ int main() {
     global_server = server;
     
     // Setup routes
-    router_add_route(server->router, "GET", "/auth", auth_handler);
+    router_add_route(server->router, "GET", "/a", auth_handler);
     router_add_route(server->router, "GET", "/api/status", handle_api_status);
     router_add_route(server->router, "POST", "/submit", handle_post_data);
     router_add_route(server->router, "GET", "/server", handle_server);
