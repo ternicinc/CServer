@@ -78,6 +78,7 @@ void handle_server(http_request_t *request, http_response_t *response) {
     template_context_set(ctx, "title", "Our Server");
     template_context_set(ctx, "message", "Welcome to our server info, this is the server running the dashboard.");
     template_context_set(ctx, "version", "1.0.0");
+    template_context_set(ctx, "status", "ALPHA");
     
     char *rendered = template_render_file("templates/server.html", ctx);
     if (rendered) {
