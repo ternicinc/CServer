@@ -30,7 +30,7 @@ typedef struct {
     time_t created_at;
     time_t last_login;
     int is_active;
-    int role;  // 0 = user, 1 = admin, 2 = owner
+    int role;  // 0 = user, 1 = support, 2 = admin, 3 = owner
 } user_t;
 
 // Session structure

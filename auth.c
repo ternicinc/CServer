@@ -403,8 +403,9 @@ int auth_load_users(auth_context_t *auth_ctx, const char *filename) {
 const char* auth_get_role_name(int role) {
     switch (role) {
         case 0: return "user";
-        case 1: return "admin";
-        case 2: return "owner";
+        case 1: return "support";
+        case 2: return "admin";
+        case 3: return "owner";
         default: return "unknown";
     }
 }
