@@ -449,14 +449,13 @@ int main() {
     router_add_route(server->router, "GET", "/api/users", handle_users);
     
     // Maintenance Check.
-
     if (maintenanceMode) {
         router_add_route(server->router, "GET", "/", handle_maintenance);
     }
     else {
         router_add_route(server->router, "GET", "/", handle_home);
     }
-    
+
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
     
