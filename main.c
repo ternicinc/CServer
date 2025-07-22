@@ -456,6 +456,7 @@ int main() {
     else {
         router_add_route(server->router, "GET", "/", handle_home);
     }
+    
     // Enable static file serving
     router_add_static_route(server->router, "/static", "static");
     
